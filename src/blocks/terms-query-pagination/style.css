@@ -1,0 +1,12 @@
+/* Ensure horizontal layout on the front end even if theme doesn't apply block layout styles */
+.wp-block-terms-query-pagination-terms-query-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5em;
+}
+
+/* Reset inner items spacing a bit */
+.wp-block-terms-query-pagination-terms-query-pagination > * {
+    margin: 0;
+}

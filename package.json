@@ -1,0 +1,37 @@
+{
+  "name": "terms-query-pagination",
+  "version": "1.0.0",
+  "description": "Displays pagination controls for the Terms Query block.",
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "Maud Royer",
+    "email": "hello@maudroyer.fr",
+    "url": "https://maudroyer.fr"
+  },
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build --webpack-copy-php",
+    "env:start": "wp-env start --xdebug",
+    "env:stop": "wp-env stop",
+    "env:destroy": "wp-env destroy",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^10.13.0",
+    "@wordpress/icons": "^11.3.0",
+    "@wordpress/scripts": "^31.1.0"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^15.9.0",
+    "@wordpress/blocks": "^15.9.0",
+    "@wordpress/components": "^30.9.0",
+    "@wordpress/compose": "^7.36.0",
+    "@wordpress/data": "^10.36.0",
+    "@wordpress/element": "^6.36.0",
+    "@wordpress/i18n": "^6.9.0"
+  }
+}
