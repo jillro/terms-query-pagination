@@ -106,7 +106,6 @@ add_filter( 'pre_render_block', 'terms_query_pagination_enter_term_template_bloc
 
 function terms_query_pagination_exit_term_template_block( $block_content, $block, $instance ) {
 	$depth =& terms_query_pagination_get_context_depth_ref();
-	
 
 	// If we're exiting core/term-template block or any dynamic nested-block, decrease the depth counter.
 	if ( $depth > 0 && $instance->name !== 'core/null' ) {
@@ -154,8 +153,6 @@ function terms_query_pagination_parse_term_query( $query ) {
 		return;
 	}
 
-	$query->query_vars['parent'] = '';
-
 	$current_page = Terms_Query_Pagination_Helper::get_current_page();
 	if ( $current_page <= 1 ) {
 		return;
@@ -166,3 +163,17 @@ function terms_query_pagination_parse_term_query( $query ) {
 }
 
 add_action( 'parse_term_query', 'terms_query_pagination_parse_term_query', 10, 1 );
+
+function add_taxonomy_page_rewrite() {
+	$taxonomies = get_taxonomies();
+	foreach ( $taxonomies as $tax ) {
+		add_rewrite_endpoint(
+			$tax . '-page',
+			EP_ALL,
+			'termspage'
+		);
+	}
+
+}
+
+add_action( 'init', 'add_taxonomy_page_rewrite' );

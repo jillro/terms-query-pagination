@@ -2,12 +2,13 @@
 /**
  * Render callback for the Terms Query Pagination Next block.
  *
- * @package Terms_Query_Pagination
+ * @param array $attributes Block attributes.
+ * @param string $content Block default content.
+ * @param WP_Block $block Block instance.
  *
- * @param array    $attributes Block attributes.
- * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
  * @return string Rendered block HTML.
+ *
+ * @package Terms_Query_Pagination
  */
 function render_block_terms_query_pagination_next( $attributes, $content, $block ) {
 	// Get term query from context.
@@ -26,9 +27,9 @@ function render_block_terms_query_pagination_next( $attributes, $content, $block
 	}
 
 	// Get label from attributes or context.
-	$label        = isset( $attributes['label'] ) ? $attributes['label'] : __( 'Next Page', 'terms-query-pagination' );
-	$show_label   = isset( $block->context['showLabel'] ) ? $block->context['showLabel'] : true;
-	$arrow_type   = isset( $block->context['paginationArrow'] ) ? $block->context['paginationArrow'] : 'none';
+	$label      = isset( $attributes['label'] ) ? $attributes['label'] : __( 'Next Page', 'terms-query-pagination' );
+	$show_label = isset( $block->context['showLabel'] ) ? $block->context['showLabel'] : true;
+	$arrow_type = isset( $block->context['paginationArrow'] ) ? $block->context['paginationArrow'] : 'none';
 
 	// Build label with arrow.
 	$arrow_map = array(
@@ -48,7 +49,7 @@ function render_block_terms_query_pagination_next( $attributes, $content, $block
 
 	// Generate next page URL.
 	$next_page = $current_page + 1;
-	$next_url  = Terms_Query_Pagination_Helper::get_page_url( $next_page );
+	$next_url  = Terms_Query_Pagination_Helper::get_page_url( $term_query, $next_page );
 
 	// Build the link HTML.
 	$wrapper_attributes = get_block_wrapper_attributes();

@@ -11,6 +11,8 @@
  *
  */
 function render_block_terms_query_pagination_numbers( $attributes, $content, $block ) {
+	global $wp_rewrite;
+
 	// Get term query from context.
 	$term_query = isset( $block->context['termQuery'] ) ? $block->context['termQuery'] : array();
 
@@ -33,7 +35,13 @@ function render_block_terms_query_pagination_numbers( $attributes, $content, $bl
 
 	// Build base URL for pagination links.
 	// Use a simple query-arg based pagination model with "termspage".
-	$base_url = add_query_arg( 'termspage', '%#%' );
+
+	if ( $wp_rewrite->using_permalinks() ) {
+		$taxonomy = $term_query['taxonomy'];
+		$base_url = user_trailingslashit( trailingslashit( get_permalink() ) . $taxonomy . '-page/' . '%#%' );
+	} else {
+		$base_url = add_query_arg( 'termspage', '%#%' );
+	}
 
 	// Generate pagination links.
 	$pagination_links = paginate_links(

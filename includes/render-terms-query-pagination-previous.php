@@ -2,12 +2,13 @@
 /**
  * Render callback for the Terms Query Pagination Previous block.
  *
+ * @param array $attributes Block attributes.
+ * @param string $content Block default content.
+ * @param WP_Block $block Block instance.
+ *
+ * @return string Rendered block HTML.
  * @package Terms_Query_Pagination
  *
- * @param array    $attributes Block attributes.
- * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
- * @return string Rendered block HTML.
  */
 function render_block_terms_query_pagination_previous( $attributes, $content, $block ) {
 	// Get term query from context.
@@ -26,9 +27,9 @@ function render_block_terms_query_pagination_previous( $attributes, $content, $b
 	}
 
 	// Get label from attributes or context.
-	$label        = isset( $attributes['label'] ) ? $attributes['label'] : __( 'Previous Page', 'terms-query-pagination' );
-	$show_label   = isset( $block->context['showLabel'] ) ? $block->context['showLabel'] : true;
-	$arrow_type   = isset( $block->context['paginationArrow'] ) ? $block->context['paginationArrow'] : 'none';
+	$label      = isset( $attributes['label'] ) ? $attributes['label'] : __( 'Previous Page', 'terms-query-pagination' );
+	$show_label = isset( $block->context['showLabel'] ) ? $block->context['showLabel'] : true;
+	$arrow_type = isset( $block->context['paginationArrow'] ) ? $block->context['paginationArrow'] : 'none';
 
 	// Build label with arrow.
 	$arrow_map = array(
@@ -48,7 +49,7 @@ function render_block_terms_query_pagination_previous( $attributes, $content, $b
 
 	// Generate previous page URL.
 	$previous_page = $current_page - 1;
-	$previous_url  = Terms_Query_Pagination_Helper::get_page_url( $previous_page );
+	$previous_url  = Terms_Query_Pagination_Helper::get_page_url( $term_query, $previous_page );
 
 	// Build the link HTML.
 	$wrapper_attributes = get_block_wrapper_attributes();

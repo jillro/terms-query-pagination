@@ -18,8 +18,8 @@ class Terms_Query_Pagination_Helper {
 	 * @return int Current page number (minimum 1).
 	 */
 	public static function get_current_page() {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$page = isset( $_GET['termspage'] ) ? absint( $_GET['termspage'] ) : 1;
+		global $wp_query;
+		$page = isset( $wp_query->query_vars['termspage'] ) ? absint( $wp_query->query_vars['termspage'] ) : 1;
 
 		return max( 1, $page );
 	}
@@ -80,14 +80,27 @@ class Terms_Query_Pagination_Helper {
 	 *
 	 * @return string The URL with page parameter.
 	 */
-	public static function get_page_url( $page_number ) {
-		$page_number = absint( $page_number );
-		if ( $page_number <= 1 ) {
-			// Remove termspage parameter for page 1.
-			return remove_query_arg( 'termspage' );
-		}
+	public static function get_page_url( $term_query, $page_number ) {
+		global $wp_rewrite;
+		$taxonomy = $term_query['taxonomy'];
 
-		return add_query_arg( 'termspage', $page_number );
+		$page_number = absint( $page_number );
+
+		if ( $wp_rewrite->using_permalinks() ) {
+			if ( $page_number <= 1 ) {
+				// Remove termspage parameter for page 1.
+				return get_permalink();
+			}
+
+			return user_trailingslashit( trailingslashit( get_permalink() ) . $taxonomy . '-page/' . $page_number );
+		} else {
+			if ( $page_number <= 1 ) {
+				// Remove termspage parameter for page 1.
+				return remove_query_arg( 'termspage' );
+			}
+
+			return add_query_arg( 'termspage', $page_number );
+		}
 	}
 
 	/**
@@ -126,37 +139,6 @@ class Terms_Query_Pagination_Helper {
 		return $args;
 	}
 
-	/**
-	 * Build arguments for get_terms() based on term query context and current page.
-	 *
-	 * @param array $term_query The term query configuration from block context.
-	 * @param int $page The current page number.
-	 *
-	 * @return array Arguments for get_terms().
-	 */
-	public static function build_term_query_args( $term_query, $page = 1 ) {
-		$page     = max( 1, absint( $page ) );
-		$per_page = self::get_per_page( $term_query );
-
-		// Taxonomy from either 'taxonomy' or 'taxonomies'.
-		$taxonomy = isset( $term_query['taxonomy'] ) ? $term_query['taxonomy'] : ( isset( $term_query['taxonomies'] ) ? $term_query['taxonomies'] : 'category' );
-
-		$args = array(
-			'taxonomy'   => $taxonomy,
-			'number'     => $per_page,
-			'offset'     => ( $page - 1 ) * $per_page,
-			'orderby'    => isset( $term_query['orderBy'] ) ? $term_query['orderBy'] : 'name',
-			'order'      => isset( $term_query['order'] ) ? strtoupper( $term_query['order'] ) : 'ASC',
-			'hide_empty' => isset( $term_query['hideEmpty'] ) ? (bool) $term_query['hideEmpty'] : ( isset( $term_query['hide_empty'] ) ? (bool) $term_query['hide_empty'] : true ),
-		);
-
-		// Add include filter if specified.
-		if ( ! empty( $term_query['include'] ) && is_array( $term_query['include'] ) ) {
-			$args['include'] = array_map( 'absint', $term_query['include'] );
-		}
-
-		return $args;
-	}
 
 	/**
 	 * Check if a next page exists.
