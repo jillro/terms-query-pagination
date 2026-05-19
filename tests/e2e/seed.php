@@ -12,6 +12,11 @@
  * @package Terms_Query_Pagination
  */
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Build the terms-query + pagination block markup for a taxonomy.
  *

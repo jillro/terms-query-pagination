@@ -5,6 +5,11 @@
  * @package Terms_Query_Pagination
  */
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Terms_Query_Pagination_Helper
  *

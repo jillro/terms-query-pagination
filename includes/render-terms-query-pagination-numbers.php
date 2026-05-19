@@ -10,6 +10,12 @@
  * @package Terms_Query_Pagination
  *
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function render_block_terms_query_pagination_numbers( $attributes, $content, $block ) {
 	global $wp_rewrite;
 

@@ -10,6 +10,12 @@
  * @package Terms_Query_Pagination
  *
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function render_block_terms_query_pagination_previous( $attributes, $content, $block ) {
 	// Get term query from context.
 	$term_query = isset( $block->context['termQuery'] ) ? $block->context['termQuery'] : array();
