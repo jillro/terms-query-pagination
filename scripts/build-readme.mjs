@@ -58,12 +58,15 @@ const bodyMd = lines
 	.trim();
 
 // --- Build badges from the parsed header metadata. ---
+// Use an <img> tag rather than Markdown image syntax: the badges live inside
+// a <p align="center"> HTML block, and GitHub does not render Markdown inside
+// block-level HTML.
 const badge = ( label, message, color ) =>
-	`![${ label }](https://img.shields.io/badge/${ encodeURIComponent(
+	`<img alt="${ label }" src="https://img.shields.io/badge/${ encodeURIComponent(
 		label
 	) }-${ encodeURIComponent(
 		String( message ).replace( /-/g, '--' )
-	) }-${ color })`;
+	) }-${ color }">`;
 
 const badges = [];
 if ( headers[ 'Stable tag' ] ) {
