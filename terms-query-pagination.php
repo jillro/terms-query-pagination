@@ -162,7 +162,11 @@ function terms_query_pagination_parse_term_query( $query ) {
 
 add_action( 'parse_term_query', 'terms_query_pagination_parse_term_query', 10, 1 );
 
-function add_taxonomy_page_rewrite() {
+/**
+ * Register a `{taxonomy}-page` rewrite endpoint for every taxonomy so pretty
+ * permalinks like `/{tax}-page/2` resolve to the `termspage` query var.
+ */
+function terms_query_pagination_add_taxonomy_page_rewrite() {
 	$taxonomies = get_taxonomies();
 	foreach ( $taxonomies as $tax ) {
 		add_rewrite_endpoint(
@@ -174,4 +178,24 @@ function add_taxonomy_page_rewrite() {
 
 }
 
-add_action( 'init', 'add_taxonomy_page_rewrite' );
+add_action( 'init', 'terms_query_pagination_add_taxonomy_page_rewrite' );
+
+/**
+ * On activation, register the rewrite endpoint and flush rewrite rules so
+ * pretty pagination permalinks work immediately without re-saving permalinks.
+ */
+function terms_query_pagination_activate() {
+	terms_query_pagination_add_taxonomy_page_rewrite();
+	flush_rewrite_rules();
+}
+
+register_activation_hook( __FILE__, 'terms_query_pagination_activate' );
+
+/**
+ * On deactivation, flush rewrite rules to drop the plugin's endpoint.
+ */
+function terms_query_pagination_deactivate() {
+	flush_rewrite_rules();
+}
+
+register_deactivation_hook( __FILE__, 'terms_query_pagination_deactivate' );
