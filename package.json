@@ -2,7 +2,7 @@
   "name": "terms-query-pagination",
   "version": "1.0.0",
   "description": "Displays pagination controls for the Terms Query block.",
-  "license": "GPL-3.0-or-later",
+  "license": "GPL-2.0-or-later",
   "author": {
     "name": "Maud Royer",
     "email": "hello@maudroyer.fr",

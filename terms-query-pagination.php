@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Terms Query Pagination
- * Plugin URI: https://github.com/your-username/terms-query-pagination
+ * Plugin Name: Terms Query Pagination Block
+ * Plugin URI: https://lqmstudio.com/terms-query-pagination-wordpress
  * Description: Adds pagination blocks for the WordPress 6.9 Terms Query block, following the pattern of WordPress Core pagination blocks.
  * Version: 1.0.0
  * Requires at least: 6.9
  * Requires PHP: 7.4
- * Author: maud
- * Author URI: https://github.com/your-username
+ * Author: LQM Studio
+ * Author URI: https://lqmstudio.com
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: terms-query-pagination
