@@ -95,7 +95,6 @@ function terms_query_pagination_enter_term_template_block( $pre_render, $parsed_
 	// If we're entering core/term-template block or any nested-block, increase the depth counter.
 	if ( $depth > 0 || 'core/term-template' == $block_name ) {
 		$depth ++;
-		error_log( 'enter ' . $block_name );
 	}
 
 	return $pre_render;
@@ -110,7 +109,6 @@ function terms_query_pagination_exit_term_template_block( $block_content, $block
 	// If we're exiting core/term-template block or any dynamic nested-block, decrease the depth counter.
 	if ( $depth > 0 && $instance->name !== 'core/null' ) {
 		$depth --;
-		error_log( 'exit ' . $instance->name );
 	}
 
 
