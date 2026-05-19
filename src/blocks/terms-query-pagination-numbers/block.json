@@ -8,7 +8,7 @@
         "terms-query-pagination/terms-query-pagination"
     ],
     "description": "Displays a list of page numbers for terms pagination.",
-    "textdomain": "default",
+    "textdomain": "terms-query-pagination",
     "attributes": {
         "midSize": {
             "type": "number",

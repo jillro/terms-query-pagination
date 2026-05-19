@@ -13,7 +13,7 @@
         "terms-query-pagination/terms-query-pagination-next"
     ],
     "description": "Displays pagination controls for the Terms Query block.",
-    "textdomain": "default",
+    "textdomain": "terms-query-pagination",
     "attributes": {
         "paginationArrow": {
             "type": "string",
