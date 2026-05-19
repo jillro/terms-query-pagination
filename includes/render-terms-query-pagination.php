@@ -7,6 +7,12 @@
  *
  * @return string Rendered block HTML.
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function render_block_terms_query_pagination( $attributes, $content ) {
 	if ( empty( trim( $content ) ) ) {
 		return '';
