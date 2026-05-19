@@ -1,4 +1,4 @@
-=== Terms Query Pagination ===
+=== Terms Query Pagination Block ===
 Contributors: jillro
 Tags: pagination, terms, taxonomy, query loop, blocks
 Requires at least: 6.9
