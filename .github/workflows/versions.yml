@@ -1,0 +1,27 @@
+name: Version sync
+
+on:
+  push:
+    paths:
+      - 'package.json'
+      - 'readme.txt'
+      - 'terms-query-pagination.php'
+      - 'scripts/check-versions.mjs'
+      - '.github/workflows/versions.yml'
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'readme.txt'
+      - 'terms-query-pagination.php'
+      - 'scripts/check-versions.mjs'
+
+jobs:
+  check:
+    name: Plugin version is consistent everywhere
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm run version:check

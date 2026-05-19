@@ -19,6 +19,9 @@
     "lint:js": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
+    "readme": "node scripts/build-readme.mjs",
+    "readme:check": "node scripts/build-readme.mjs --check",
+    "version:check": "node scripts/check-versions.mjs",
     "test:e2e": "playwright test --config tests/e2e/playwright.config.js"
   },
   "devDependencies": {

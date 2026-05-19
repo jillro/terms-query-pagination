@@ -4,7 +4,9 @@
 /.idea
 /.vscode
 /node_modules
+/scripts
 /src
+/tests
 
 # Files
 /.distignore
@@ -22,6 +24,7 @@
 /phpcs.xml
 /phpcs.xml.dist
 /webpack.config.js
+/README.md
 /terms-query-pagination.zip
 
 # Logs and temp
