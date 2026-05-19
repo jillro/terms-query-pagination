@@ -12,7 +12,7 @@
         "terms-query-pagination/terms-query-pagination-numbers",
         "terms-query-pagination/terms-query-pagination-next"
     ],
-    "description": "Displays pagination controls for the Terms Query block.",
+    "description": "Displays a paginated navigation to next/previous set of terms, when applicable.",
     "textdomain": "terms-query-pagination",
     "attributes": {
         "paginationArrow": {
