@@ -36,7 +36,7 @@ class Terms_Query_Pagination_Helper {
 			return 1;
 		}
 
-		$per_page = self::get_per_page( $term_query );
+		$per_page = (int) ( $term_query['perPage'] ?? 10 );
 		if ( $per_page <= 0 ) {
 			return 1;
 		}
@@ -55,23 +55,6 @@ class Terms_Query_Pagination_Helper {
 		return max( 1, (int) ceil( $total_terms / $per_page ) );
 	}
 
-	/**
-	 * Derive per-page value from various possible keys.
-	 *
-	 * @param array $term_query The term query configuration.
-	 *
-	 * @return int Per-page number.
-	 */
-	public static function get_per_page( $term_query ) {
-		$per_page = 0;
-		if ( isset( $term_query['perPage'] ) ) {
-			$per_page = absint( $term_query['perPage'] );
-		} elseif ( isset( $term_query['per_page'] ) ) {
-			$per_page = absint( $term_query['per_page'] );
-		}
-
-		return $per_page > 0 ? $per_page : 10;
-	}
 
 	/**
 	 * Generate URL for a specific page number.
@@ -82,7 +65,7 @@ class Terms_Query_Pagination_Helper {
 	 */
 	public static function get_page_url( $term_query, $page_number ) {
 		global $wp_rewrite;
-		$taxonomy = $term_query['taxonomy'];
+		$taxonomy = $term_query['taxonomy'] ?? 'category';
 
 		$page_number = absint( $page_number );
 
@@ -112,19 +95,8 @@ class Terms_Query_Pagination_Helper {
 	 */
 	public static function build_count_args( $term_query ) {
 		// Taxonomy can be provided as string or array (e.g., 'taxonomy' or 'taxonomies').
-		$taxonomy = 'category';
-		if ( isset( $term_query['taxonomy'] ) ) {
-			$taxonomy = $term_query['taxonomy'];
-		} elseif ( isset( $term_query['taxonomies'] ) ) {
-			$taxonomy = $term_query['taxonomies'];
-		}
-
-		$hide_empty = true;
-		if ( array_key_exists( 'hideEmpty', $term_query ) ) {
-			$hide_empty = (bool) $term_query['hideEmpty'];
-		} elseif ( array_key_exists( 'hide_empty', $term_query ) ) {
-			$hide_empty = (bool) $term_query['hide_empty'];
-		}
+		$taxonomy   = $term_query['taxonomy'] ?? 'category';
+		$hide_empty = (bool) ( $term_query['hideEmpty'] ?? true );
 
 		$args = array(
 			'taxonomy'   => $taxonomy,

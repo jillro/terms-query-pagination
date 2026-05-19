@@ -37,7 +37,7 @@ function render_block_terms_query_pagination_numbers( $attributes, $content, $bl
 	// Use a simple query-arg based pagination model with "termspage".
 
 	if ( $wp_rewrite->using_permalinks() ) {
-		$taxonomy = $term_query['taxonomy'];
+		$taxonomy = $term_query['taxonomy'] ?? 'category';
 		$base_url = user_trailingslashit( trailingslashit( get_permalink() ) . $taxonomy . '-page/' . '%#%' );
 	} else {
 		$base_url = add_query_arg( 'termspage', '%#%' );
