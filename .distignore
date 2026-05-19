@@ -1,0 +1,33 @@
+# Directories
+/.git
+/.github
+/.idea
+/.vscode
+/node_modules
+/src
+
+# Files
+/.distignore
+/.gitignore
+/.gitattributes
+/.gitmodules
+/.editorconfig
+/.eslintrc.js
+/.prettierrc.js
+/package.json
+/package-lock.json
+/yarn.lock
+/composer.json
+/composer.lock
+/phpcs.xml
+/phpcs.xml.dist
+/webpack.config.js
+/terms-query-pagination.zip
+
+# Logs and temp
+*.log
+*.tmp
+*.bak
+*.cache
+.DS_Store
+Thumbs.db

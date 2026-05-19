@@ -10,6 +10,9 @@ yarn.lock
 /dist/
 terms-query-pagination.zip
 
+# Test artifacts
+/test-results/
+
 # IDE
 .idea/
 .vscode/
