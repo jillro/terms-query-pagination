@@ -1,0 +1,32 @@
+name: E2E tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  e2e:
+    name: Playwright e2e suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node_modules/.bin/playwright install --with-deps chromium
+      - name: Resolve Playwright chromium path
+        run: echo "PW_CHROMIUM=$(node -e "console.log(require('playwright-core').chromium.executablePath())")" >> "$GITHUB_ENV"
+      - run: npm run env:start
+      - name: Establish pretty permalinks and write .htaccess
+        run: node_modules/.bin/wp-env run cli wp rewrite structure '/%postname%/' --hard
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-test-results
+          path: test-results/

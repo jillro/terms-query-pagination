@@ -2,18 +2,9 @@ name: README sync
 
 on:
   push:
-    paths:
-      - 'readme.txt'
-      - 'README.md'
-      - 'scripts/build-readme.mjs'
-      - 'scripts/readme-parts/**'
-      - '.github/workflows/readme.yml'
+    branches:
+      - main
   pull_request:
-    paths:
-      - 'readme.txt'
-      - 'README.md'
-      - 'scripts/build-readme.mjs'
-      - 'scripts/readme-parts/**'
 
 jobs:
   check:
