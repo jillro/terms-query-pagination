@@ -9,6 +9,9 @@ yarn.lock
 /dist/
 terms-query-pagination.zip
 
+# wp-env local override (used by CI to pin WP versions; ad-hoc local overrides)
+.wp-env.override.json
+
 # Test artifacts
 /test-results/
 

@@ -8,14 +8,40 @@ on:
 
 jobs:
   e2e:
-    name: Playwright e2e suite
+    name: Playwright e2e suite (${{ matrix.wp }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        wp: ["6.9", "7.0", "rc-latest"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+      - name: Resolve WordPress core target
+        id: wp
+        run: |
+          set -euo pipefail
+          case "${{ matrix.wp }}" in
+            rc-latest)
+              core=$(curl -fsSL 'https://api.wordpress.org/core/version-check/1.7/?channel=beta' \
+                | jq -r '[.offers[] | select(.response == "development")][0].download // empty')
+              if [ -z "$core" ]; then
+                core='https://wordpress.org/nightly-builds/wordpress-latest.zip'
+              fi
+              ;;
+            *)
+              core="https://wordpress.org/wordpress-${{ matrix.wp }}.zip"
+              ;;
+          esac
+          echo "core=$core" >> "$GITHUB_OUTPUT"
+      - name: Pin wp-env to ${{ matrix.wp }}
+        run: |
+          cat > .wp-env.override.json <<JSON
+          { "core": "${{ steps.wp.outputs.core }}" }
+          JSON
       - run: npm ci
       - run: npm run build
       - run: node_modules/.bin/playwright install --with-deps chromium
@@ -28,5 +54,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-test-results
+          name: playwright-test-results-${{ matrix.wp }}
           path: test-results/

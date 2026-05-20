@@ -7,7 +7,7 @@
 
 <p align="center">
   <img alt="Stable" src="https://img.shields.io/badge/Stable-1.0.0-0a7caf">
-  <img alt="WordPress" src="https://img.shields.io/badge/WordPress-6.9%20tested-21759b">
+  <img alt="WordPress" src="https://img.shields.io/badge/WordPress-7.0%20tested-21759b">
   <img alt="PHP" src="https://img.shields.io/badge/PHP-7.4%2B-777bb4">
   <img alt="License" src="https://img.shields.io/badge/License-GPLv2%20or%20later-green">
 </p>
